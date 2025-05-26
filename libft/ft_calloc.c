@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2024/11/12 09:53:59 by abouclie          #+#    #+#             */
+/*   Updated: 2024/11/26 10:44:12 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-
 #include "libft.h"
-#include <stdio.h>
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
 
-#endif
+	if (nmemb == 0 || size == 0)
+		return (malloc(0));
+	if ((nmemb * size) / nmemb != size)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, size * nmemb);
+	return (ptr);
+}

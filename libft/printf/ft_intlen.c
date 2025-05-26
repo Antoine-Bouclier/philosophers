@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/02/20 10:49:03 by abouclie          #+#    #+#             */
+/*   Updated: 2025/02/20 17:25:19 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+int	ft_intlen(long n, int bsize)
+{
+	int	i;
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+	i = 0;
+	if (n < 0)
+	{
+		n = n * -1;
+		i++;
+	}
+	while (n >= bsize)
+	{
+		n = n / bsize;
+		i++;
+	}
+	if (n < bsize)
+		i++;
+	return (i);
+}

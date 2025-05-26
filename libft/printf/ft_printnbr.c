@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/02/20 11:10:22 by abouclie          #+#    #+#             */
+/*   Updated: 2025/02/20 11:10:35 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+int	ft_printnbr(long int n, char *base)
+{
+	char	*nb;
+	int		len;
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+	len = 0;
+	nb = ft_itoa_base(n, base);
+	len = ft_printstr(nb);
+	free(nb);
+	return (len);
+}

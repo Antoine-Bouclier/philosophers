@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/03/26 05:36:07 by abouclie          #+#    #+#             */
+/*   Updated: 2025/04/02 08:17:45 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-
 #include "libft.h"
-#include <stdio.h>
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+int	ft_abs(int x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}

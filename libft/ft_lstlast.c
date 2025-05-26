@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2024/11/21 10:58:24 by abouclie          #+#    #+#             */
+/*   Updated: 2024/11/21 13:46:09 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-
 #include "libft.h"
-#include <stdio.h>
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
+t_list	*ft_lstlast(t_list *lst)
+{
+	t_list	*last;
 
-#endif
+	if (!lst)
+		return (NULL);
+	last = lst;
+	while (last->next)
+	{
+		last = last->next;
+	}
+	return (last);
+}

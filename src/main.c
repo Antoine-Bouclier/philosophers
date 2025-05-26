@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 08:21:42 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/26 09:05:56 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	main(int argc, char **argv)
 {
-	
+	check_arg(argc, argv);
 }

@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/02/20 11:04:21 by abouclie          #+#    #+#             */
+/*   Updated: 2025/02/20 11:04:36 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+int	ft_print_ptr(unsigned long long n)
+{
+	int		length;
+	char	*nb;
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+	nb = 0;
+	length = 0;
+	if (!n)
+	{
+		ft_putstr(("(nil)"));
+		return (5);
+	}
+	else if (n == 0)
+		length += write(1, "0", 1);
+	else
+	{
+		length = 2;
+		write(1, "0x", 2);
+		nb = ft_itoa_ptr(n, "0123456789abcdef");
+		length += ft_printstr(nb);
+	}
+	free(nb);
+	return (length);
+}

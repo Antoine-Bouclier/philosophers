@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_ptrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/02/20 10:50:16 by abouclie          #+#    #+#             */
+/*   Updated: 2025/02/20 11:19:26 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+int	ft_ptrlen(uintptr_t n)
+{
+	int	i;
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+	i = 0;
+	while (n >= 16)
+	{
+		n = n / 16;
+		i++;
+	}
+	if (n < 16)
+		i++;
+	return (i);
+}

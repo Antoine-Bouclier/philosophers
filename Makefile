@@ -35,7 +35,7 @@ LST_SRC		=	main.c
 
 LST_PAR		=	check_arg.c
 
-LST_UTL		=	
+LST_UTL		=	str_is_digit.c
 
 LST_INC		=	philosophers.h
 

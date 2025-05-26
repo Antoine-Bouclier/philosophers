@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_itoa_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:20:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/02/20 11:00:18 by abouclie          #+#    #+#             */
+/*   Updated: 2025/02/20 17:25:27 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+char	*ft_itoa_ptr(uintptr_t n, char *base)
+{
+	int			i;
+	int			size;
+	char		*str;
 
-int	check_arg(int argc, char **argv);
-int	str_is_digit(char *str);
-
-#endif
+	i = 0;
+	size = ft_ptrlen(n);
+	str = malloc((size + 1) * sizeof(char));
+	if (str == NULL)
+		return (NULL);
+	str[size] = '\0';
+	while (size-- > i)
+	{
+		str[size] = base[n % 16];
+		n /= 16;
+	}
+	return (str);
+}
