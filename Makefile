@@ -1,7 +1,7 @@
 NAME = philosophers
 
 CC      := cc
-CFLAGS  := -Wall -Wextra -Werror -MMD
+CFLAGS  := -Wall -Wextra -Werror -MMD -pthread
 RM      := rm -rf
 
 D_SRC   := src/
@@ -13,9 +13,10 @@ D_UTL   := $(D_SRC)utils/
 D_PAR   := $(D_SRC)parsing/
 D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL)
 
-LST_SRC := main.c
+LST_SRC :=	main.c
 
-LST_PAR := check_arg.c
+LST_PAR :=	check_arg.c \
+			init.c
 
 LST_UTL :=	str_is_digit.c \
 			ft_atoi.c
