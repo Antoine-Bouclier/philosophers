@@ -1,116 +1,56 @@
-.PHONY : all clean fclean re libft norminette valgrind
-
 NAME = philosophers
 
-# ╭━━━━━━━━━━━━══════════╕出 ❖ BASICS VARIABLES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
+CC      := cc
+CFLAGS  := -Wall -Wextra -Werror -MMD
+RM      := rm -rf
 
-CC				:=	cc
+D_SRC   := src/
+D_INC   := inc/
+D_OBJ   := .obj/
+D_DEP   := .dep/
 
-CFLAGS			:= -Wall -Wextra -Werror -MMD
+D_UTL   := $(D_SRC)utils/
+D_PAR   := $(D_SRC)parsing/
+D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL)
 
-RM				:=	rm	-rf
+LST_SRC := main.c
+LST_PAR := check_arg.c
+LST_UTL := str_is_digit.c
 
-SHOW_MSG_CLEAN	=	true
+LST_SRCS := $(LST_SRC) $(LST_PAR) $(LST_UTL)
+INC      := $(addprefix $(D_INC), philosophers.h)
 
-MAKEFLAGS		+=	--no-print-directory
+OBJ  := $(addprefix $(D_OBJ), $(notdir $(LST_SRCS:.c=.o)))
+DEPS := $(addprefix $(D_DEP), $(notdir $(LST_SRCS:.c=.d)))
 
-# ╰━━━━━━━━━━━━━━━━════════════════╛出 ❖ 力╘════════════════━━━━━━━━━━━━━━━━╯ #
+INCS := -I$(D_INC)
 
-# ╭━━━━━━━━━━━━══════════╕出 ❖ FILE TREE ❖ 力╒═══════════━━━━━━━━━━━━╮ #
+vpath %.c $(D_SRCS)
 
-# directories
-D_SRC	=	src/
-D_INC	=	inc/
-D_OBJ	=	.obj/
-D_DEP	=	.dep/
-D_LFT	=	libft/
+all: $(NAME)
 
-D_UTL	=	$(D_SRC)utils/
-D_PAR	=	$(D_SRC)parsing/
-
-D_SRCS	= $(D_SRC) $(D_PAR) $(D_UTL)
-
-# file lists
-LST_SRC		=	main.c
-
-LST_PAR		=	check_arg.c
-
-LST_UTL		=	str_is_digit.c
-
-LST_INC		=	philosophers.h
-
-LST_SRCS	=	$(LST_SRC) $(LST_PAR) $(LST_SIG) $(LST_UTL)
-
-INC			=	$(addprefix $(D_INC), $(LST_INC))
-
-OBJ			=	$(addprefix $(D_OBJ), $(notdir $(LST_SRCS:.c=.o)))
-
-DEPS		=	$(addprefix $(D_DEPS), $(notdir $(LST_SRCS:.c=.d)))
-
-LIBS		:=	-L$(D_LFT) -lft
-
-INCS		:=	-I$(D_INC) -I$(D_LFT)
-
-# ╭━━━━━━━━━━━━══════════╕出 ❖ RULES ❖ 力╒═══════════━━━━━━━━━━━━╮ #
-
-all:	$(NAME)
-
-$(NAME):	libft $(OBJ) $(INC) | $(D_OBJ) $(D_DEP) Makefile
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $(NAME)
-	@$(MAKE) clean
-	@echo "\e[0;32m$(NAME) program created successfully ! 🧬\e[0m"
-	@clear
-
-debug:	libft $(OBJ) $(INC) | $(D_OBJ) $(D_DEP) Makefile
-	@$(CC) $(CFLAGS) -g3 $(OBJ) $(LIBS) -o $(NAME)
-	@echo "\e[0;32m$(NAME) program created successfully ! 🧬\e[0m"
+$(NAME): $(OBJ) | $(D_OBJ) $(D_DEP)
+	@$(CC) $(CFLAGS) $(OBJ) -o $@
+	@echo "$(GREEN)$(NAME) program created successfully ! 🧬$(RESET)"
 
 $(D_OBJ):
 	@mkdir -p $@
 
 $(D_DEP):
-	@mkdir -p $(D_DEP)
-
-vpath %.c $(D_SRCS)
+	@mkdir -p $@
 
 $(D_OBJ)%.o: %.c | $(D_OBJ) $(D_DEP)
-# @echo "Compiling $< → $@"
-	@$(CC) $(CFLAGS) -g3 $(INCS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 	@mv $(@:.o=.d) $(D_DEP)
 
 -include $(DEPS)
 
-libft:	$(D_LFT)
-	$(MAKE) -C $(D_LFT)
-
 clean:
-ifeq ($(SHOW_MSG_CLEAN), true)
-	@echo "\e[0;36mAll $(NAME) objects have been removed 🧹\e[0m"
-endif
-	@$(MAKE) -s -C $(D_LFT) clean
-	@$(RM) $(D_OBJ) $(D_DEP) $(D_DOC)
+	@$(RM) $(D_OBJ) $(D_DEP)
+	@echo "$(RED)Cleaned$(RESET)"
 
-fclean:
-	@$(MAKE) -s SHOW_MSG_CLEAN=false clean
-	@$(MAKE) -s -C $(D_LFT) fclean
+fclean: clean
 	@$(RM) $(NAME)
-	@clear
-	@echo "\e[0;34m$(NAME) executable deleted ! 🧼\e[0m"
+	@echo "$(RED)Executable removed$(RESET)"
 
-re:
-	@$(MAKE) fclean
-	@$(MAKE) all
-	@echo "\e[0;32m$(NAME) program recreated successfully ! 🫡\e[0m"
-
-norminette:
-	norminette $(D_SRC) $(D_INC)
-
-valgrind: supp_file
-	@$(MAKE) debug
-	@clear
-	valgrind							\
-		--leak-check=full					\
-		--show-leak-kinds=all				\
-		--track-origins=yes 				\
-		--track-fds=yes						\
-		./$(NAME)
+re: fclean all

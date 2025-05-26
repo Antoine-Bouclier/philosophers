@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:23:51 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:33:54 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:19:18 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	is_valid_arg(char **argv)
 	{
 		if (!str_is_digit(argv[i]))
 		{
-			printf("wrong format: \"%s\" must be a number", argv[i]);
+			printf("wrong format: \"%s\" must be a number\n", argv[i]);
 			return (1);
 		}
 		i++;

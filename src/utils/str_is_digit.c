@@ -6,11 +6,18 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 09:12:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 09:35:16 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/26 11:03:15 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
 
 int	str_is_digit(char *str)
 {
