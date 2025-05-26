@@ -14,8 +14,11 @@ D_PAR   := $(D_SRC)parsing/
 D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL)
 
 LST_SRC := main.c
+
 LST_PAR := check_arg.c
-LST_UTL := str_is_digit.c
+
+LST_UTL :=	str_is_digit.c \
+			ft_atoi.c
 
 LST_SRCS := $(LST_SRC) $(LST_PAR) $(LST_UTL)
 INC      := $(addprefix $(D_INC), philosophers.h)

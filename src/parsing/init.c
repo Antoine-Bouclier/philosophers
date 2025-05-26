@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 12:23:12 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/26 12:25:25 by abouclie          #+#    #+#             */
+/*   Updated: 2025/05/26 13:09:28 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+void	init_philosophers(char **argv)
 {
-	if (check_arg(argc, argv))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 1;
+	while (argv[i])
+	{
+		ft_atoi()
+		i++;
+	}
 }
