@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:25:25 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 13:09:28 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:22:21 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 void	init_philosophers(char **argv)
 {
-	int	i;
-
-	i = 1;
-	while (argv[i])
-	{
-		ft_atoi()
-		i++;
-	}
+	
 }
