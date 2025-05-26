@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 08:21:42 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
+/*   Updated: 2025/05/26 08:25:04 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int	main(int argc, char **argv)
-{
-	
-}
+void	check_arg(int argc, char **argv);
+
+#endif

@@ -25,19 +25,15 @@ D_OBJ	=	.obj/
 D_DEP	=	.dep/
 D_LFT	=	libft/
 
-D_EXE	=	$(D_SRC)exec/
 D_UTL	=	$(D_SRC)utils/
-D_TOK	=	$(D_SRC)token/
 D_PAR	=	$(D_SRC)parsing/
-D_BLT	=	$(D_SRC)builtins/
-D_SIG	=	$(D_SRC)signal_handlers/
 
-D_SRCS	= $(D_SRC) $(D_EXE) $(D_TOK) $(D_BLT) $(D_PAR) $(D_SIG) $(D_UTL)
+D_SRCS	= $(D_SRC) $(D_PAR) $(D_UTL)
 
 # file lists
 LST_SRC		=	main.c
 
-LST_PAR		=	
+LST_PAR		=	check_arg.c
 
 LST_UTL		=	
 
