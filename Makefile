@@ -15,8 +15,7 @@ D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL)
 
 LST_SRC :=	main.c
 
-LST_PAR :=	check_arg.c \
-			init.c
+LST_PAR :=	check_arg.c
 
 LST_UTL :=	str_is_digit.c \
 			ft_atoi.c

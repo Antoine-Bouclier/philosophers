@@ -6,13 +6,16 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:25:25 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 13:22:21 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/27 09:47:57 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init_philosophers(char **argv)
+void	init_philosophers(t_philo *philo, pthread_mutex_t *forks, int n)
 {
-	
+	int	i;
+
+	i = 0;
+	while ()
 }
