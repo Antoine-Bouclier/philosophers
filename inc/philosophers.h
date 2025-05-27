@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 12:37:03 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:56:06 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <pthread.h>
+#include <unistd.h>
 
 typedef struct s_args
 {
@@ -50,6 +51,7 @@ int			str_is_digit(char *str);
 long int	ft_atoi(const char *nptr, int *error);
 void		init_args(char **argv, t_args *args);
 void		free_all(t_data *data);
+int			init_philosophers(t_data *data);
 
 /* A supprimer */
 void	print_args(t_args *args);
