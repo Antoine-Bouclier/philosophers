@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 09:55:16 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:06:04 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 #include <pthread.h>
 
@@ -31,8 +32,6 @@ typedef struct s_philo
 	int				number;
 	pthread_t		philosopher;
 	pthread_mutex_t	right_fork;
-	pthread_mutex_t	*left_fork;
-	int				meals_eaten;
 	long			last_meal_time;
 }				t_philo;
 
@@ -40,10 +39,18 @@ typedef struct s_data
 {
 	t_args	args;
 	t_philo	*philo;
+	long		start_time;
+	int			someone_died;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	death_mutex;
 }				t_data;
 
 int			check_arg(int argc, char **argv);
 int			str_is_digit(char *str);
 long int	ft_atoi(const char *nptr, int *error);
+void		init_args(char **argv, t_args *args);
+
+/* A supprimer */
+void	print_args(t_args *args);
 
 #endif

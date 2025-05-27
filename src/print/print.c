@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 12:06:23 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/27 11:47:00 by abouclie          #+#    #+#             */
+/*   Updated: 2025/05/27 11:51:26 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+void	print_args(t_args *args)
 {
-	t_data	*data;
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-		free(data);
-	if (check_arg(argc, argv))
-		return (1);
-	init_args(argv, &data->args);
-	print_args(&data->args);
-	return (0);
+	printf("numbers of philo: %d\n", args->nb_philo);
+	printf("time to die: %d\n", args->time_to_die);
+	printf("time to eat: %d\n", args->time_to_eat);
+	printf("time to sleep: %d\n", args->time_to_sleep);
+	printf("number of times each philosopher must eat: %d\n", args->nb_times_must_eat);
 }

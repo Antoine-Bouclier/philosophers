@@ -11,16 +11,20 @@ D_DEP   := .dep/
 
 D_UTL   := $(D_SRC)utils/
 D_PAR   := $(D_SRC)parsing/
-D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL)
+D_PRT   := $(D_SRC)print/
+D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL) $(D_PRT)
 
 LST_SRC :=	main.c
 
-LST_PAR :=	check_arg.c
+LST_PAR :=	check_arg.c \
+			init_args.c
 
 LST_UTL :=	str_is_digit.c \
 			ft_atoi.c
 
-LST_SRCS := $(LST_SRC) $(LST_PAR) $(LST_UTL)
+LST_PRT :=	print.c
+
+LST_SRCS := $(LST_SRC) $(LST_PAR) $(LST_UTL) $(LST_PRT)
 INC      := $(addprefix $(D_INC), philosophers.h)
 
 OBJ  := $(addprefix $(D_OBJ), $(notdir $(LST_SRCS:.c=.o)))
