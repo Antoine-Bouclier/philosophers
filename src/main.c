@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 12:06:23 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:33:52 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	main(int argc, char **argv)
 	if (check_arg(argc, argv))
 		return (1);
 	init_args(argv, &data->args);
-	print_args(&data->args);
+	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->death_mutex, NULL);
+
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->death_mutex);
+	free(data);
 	return (0);
 }

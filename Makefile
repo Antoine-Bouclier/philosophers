@@ -20,7 +20,8 @@ LST_PAR :=	check_arg.c \
 			init_args.c
 
 LST_UTL :=	str_is_digit.c \
-			ft_atoi.c
+			ft_atoi.c \
+			free.c
 
 LST_PRT :=	print.c
 

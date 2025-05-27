@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 12:06:04 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:37:03 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int			check_arg(int argc, char **argv);
 int			str_is_digit(char *str);
 long int	ft_atoi(const char *nptr, int *error);
 void		init_args(char **argv, t_args *args);
+void		free_all(t_data *data);
 
 /* A supprimer */
 void	print_args(t_args *args);
