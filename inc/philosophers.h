@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 12:38:18 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:59:59 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <limits.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 typedef struct s_args
 {

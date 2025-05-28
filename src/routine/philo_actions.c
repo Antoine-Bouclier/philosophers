@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 09:37:11 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 13:21:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:51:16 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->left_fork);
 }
 
-void	philo_sleep()
+void	philo_sleep(t_philo *philo)
 {
-	
+	usleep(philo->args->time_to_sleep * 1000);
 }
 
-void	philo_think()
+void	philo_think(t_philo *philo)
 {
-	
+	printf("Philosopher %d thinking\n", philo->number);
 }
