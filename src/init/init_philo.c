@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 12:35:26 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 09:00:59 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/26 12:25:25 by abouclie          #+#    #+#             */
+/*   Updated: 2025/05/28 12:48:07 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	free_all(t_data *data)
+static void	init_left_fork(t_philo *philo, int	nb_philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < nb_philo)
+	{
+		philo[i].left_fork = &philo[(i + 1) % nb_philo].right_fork;
+		i++;
+	}
+}
+
+int	init_philosophers(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->args.nb_philo)
 	{
-		pthread_mutex_destroy(&data->philo[i].right_fork);
+		data->philo[i].number = i;
+		data->philo[i].args = &data->args;
+		pthread_mutex_init(&data->philo[i].right_fork, NULL);
+
 		i++;
 	}
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->death_mutex);
-	free(data->philo);
+	init_left_fork(data->philo, data->args.nb_philo);
+	return (0);
 }

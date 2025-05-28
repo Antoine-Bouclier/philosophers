@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 12:35:26 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 09:00:59 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/28 09:37:11 by abouclie          #+#    #+#             */
+/*   Updated: 2025/05/28 13:21:31 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	free_all(t_data *data)
+void	philo_eat(t_philo *philo)
 {
-	int	i;
+	pthread_mutex_lock(&philo->right_fork);
+	pthread_mutex_lock(philo->left_fork);
+	printf("Philosopher %d eating 🍝\n", philo->number);
+	usleep(philo->args->time_to_eat * 1000);
+	printf("Philosopher %d done eating\n", philo->number);
+	pthread_mutex_unlock(&philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
+}
 
-	i = 0;
-	while (i < data->args.nb_philo)
-	{
-		pthread_mutex_destroy(&data->philo[i].right_fork);
-		i++;
-	}
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->death_mutex);
-	free(data->philo);
+void	philo_sleep()
+{
+	
+}
+
+void	philo_think()
+{
+	
 }
