@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:21:19 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 13:59:59 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:52:52 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	meal_mutex;
 	t_args			*args;
+	int				*someone_died;
 	long			last_meal_time;
 }				t_philo;
 
@@ -56,11 +57,14 @@ int			str_is_digit(char *str);
 int			init_philosophers(t_data *data);
 int			start_thread(t_data *data);
 int			wait_for_threads(t_data *data);
-long int	ft_atoi(const char *nptr, int *error);
+long		current_time_ms(void);
+long		ft_atoi(const char *nptr, int *error);
 void		init_args(char **argv, t_args *args);
 void		free_all(t_data *data);
 void		*routine(void *arg);
 void		philo_eat(t_philo *philo);
+void		philo_think(t_philo *philo);
+void		philo_sleep(t_philo *philo);
 
 /* A supprimer */
 void	print_args(t_args *args);

@@ -6,25 +6,20 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:58:48 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 14:19:27 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:26:15 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long current_time_ms(void)
+long	current_time_ms(void)
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000L));
 }
 
-void	init_time(t_data *data)
-{
-	data->start_time = current_time_ms();
-}
-
-int test()
+/* int test()
 {
 	struct timeval tv;
 	struct timeval tv2;
@@ -47,4 +42,4 @@ int test()
 		perror("gettimeofday");
 	}
 	return 0;
-}
+} */

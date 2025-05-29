@@ -20,6 +20,7 @@ LST_SRC :=	main.c
 
 LST_INIT :=	init_args.c \
 			init_philo.c \
+			init_time.c \
 			handle_thread.c
 
 LST_PAR :=	check_arg.c

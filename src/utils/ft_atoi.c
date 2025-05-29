@@ -6,13 +6,13 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:39:16 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 12:45:13 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:18:17 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long int	ft_atoi(const char *nptr, int *error)
+long	ft_atoi(const char *nptr, int *error)
 {
 	long int	nb;
 	int			isneg;

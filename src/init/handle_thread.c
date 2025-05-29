@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:11:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/28 11:26:54 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:55:43 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	start_thread(t_data *data)
 	{
 		if (pthread_create(&data->philo[i].philosopher, NULL, &routine, &data->philo[i]) != 0)
 		{
+			data->someone_died = 1;
 			free_all(data);
 			return (1);
 		}
