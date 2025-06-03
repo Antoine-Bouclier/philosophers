@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_time.c                                        :+:      :+:    :+:   */
+/*   secure_mutex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 13:58:48 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/30 08:28:04 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/30 10:17:45 by abouclie          #+#    #+#             */
+/*   Updated: 2025/06/03 12:42:18 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	current_time_ms(void)
+int	safe_mutex_lock(pthread_mutex_t *mutex, int *error)
 {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000L));
+	if (pthread_mutex_lock(mutex) != 0)
+		*error = 1;
+	return (*error);
 }
+
+int	safe_mutex_unlock(pthread_mutex_t *mutex, int *error)
+{
+	if (pthread_mutex_unlock(mutex) != 0)
+		*error = 1;
+	return (*error);
+}
+

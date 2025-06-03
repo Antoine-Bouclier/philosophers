@@ -30,7 +30,8 @@ LST_RTN :=	routine.c \
 
 LST_UTL :=	str_is_digit.c \
 			ft_atoi.c \
-			free.c
+			free.c \
+			secure_mutex.c
 
 LST_PRT :=	print.c
 

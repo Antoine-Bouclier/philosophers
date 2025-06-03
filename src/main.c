@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/29 11:53:27 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:19:13 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	main(int argc, char **argv)
 		return (1);
 	pthread_mutex_init(&data.print_mutex, NULL);
 	pthread_mutex_init(&data.death_mutex, NULL);
+	pthread_mutex_init(&data.error_mutex, NULL);
 	init_philosophers(&data);
 	data.someone_died = 0;
-	if (start_thread(&data) != 0)
+	start_thread(&data);
+	if (data.error != 0)
 		return (1);
 	if (wait_for_threads(&data) != 0)
 		return (1);
-	pthread_mutex_destroy(&data.print_mutex);
-	pthread_mutex_destroy(&data.death_mutex);
 	free_all(&data);
 	return (0);
 }
