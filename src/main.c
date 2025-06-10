@@ -5,34 +5,71 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/03 12:19:13 by abouclie         ###   ########.fr       */
+/*   Created: 2025/06/06 08:57:31 by abouclie          #+#    #+#             */
+/*   Updated: 2025/06/10 14:48:28 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
+
+static int	thread_monitor(t_table *table)
+{
+	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
+		return (1);
+	if (pthread_join(table->monitor, NULL) != 0)
+	{
+		free_all(table);
+		return (1);
+	}
+	return (0);
+}
+
+static int	start_threads(t_table *table)
+{
+	unsigned int	i;
+
+	table->times.start_time = current_time_ms() + (table->nb_philos * 10);
+	i = 0;
+	while (i < table->nb_philos)
+	{
+		if (pthread_create(&table->philo[i].thread, NULL, &routine, &table->philo[i]) != 0)
+			return (msg("Error!, failed to create a new thread", 1));
+		i++;
+	}
+	return (0);
+}
+
+static int	stop_threads(t_table *table)
+{
+	unsigned int i;
+	
+	i = 0;
+	while (i < table->nb_philos)
+	{
+		if (pthread_join(table->philo[i].thread, NULL) != 0)
+			return (msg("Error: failed to join thread", 1));
+		i++;
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_table	table;
 
-	if (check_arg(argc, argv))
-		return (1);
-	init_args(argv, &data.args);
-	data.start_time = current_time_ms();
-	data.philo = malloc(sizeof(t_philo) * data.args.nb_philo);
-	if (!data.philo)
-		return (1);
-	pthread_mutex_init(&data.print_mutex, NULL);
-	pthread_mutex_init(&data.death_mutex, NULL);
-	pthread_mutex_init(&data.error_mutex, NULL);
-	init_philosophers(&data);
-	data.someone_died = 0;
-	start_thread(&data);
-	if (data.error != 0)
-		return (1);
-	if (wait_for_threads(&data) != 0)
-		return (1);
-	free_all(&data);
-	return (0);
+	if (argc - 1 < 4 || argc - 1 > 5)
+		return (msg(STR_ARG, EXIT_FAILURE));
+	if (is_valid_arg(argv))
+		return (EXIT_FAILURE);
+	if (init_table(&table, argv))
+		return (EXIT_FAILURE);
+	if (start_threads(&table))
+		return (EXIT_FAILURE);
+	if (thread_monitor(&table))
+		return (EXIT_FAILURE);
+	if (stop_threads(&table))
+		return (EXIT_FAILURE);
+	free_all(&table);
+	return (EXIT_SUCCESS);
 }
+

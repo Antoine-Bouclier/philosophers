@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_arg.c                                        :+:      :+:    :+:   */
+/*   valid_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:23:51 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 09:36:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/06/06 10:56:21 by abouclie          #+#    #+#             */
+/*   Updated: 2025/06/06 11:00:03 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-static int	is_enough_arg(int argc)
+static int	ft_isdigit(int c)
 {
-	if (argc > 6)
-	{
-		printf("Too much arguments\n");
+	if (c >= 48 && c <= 57)
 		return (1);
-	}
-	else if (argc < 5)
+	return (0);
+}
+
+static int	str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		printf("Missing arguments\n");
-		return (1);
+		if (ft_isdigit(str[i]))
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-static int	is_valid_arg(char **argv)
+int	is_valid_arg(char **argv)
 {
 	int	i;
 
@@ -35,21 +41,8 @@ static int	is_valid_arg(char **argv)
 	while (argv[i])
 	{
 		if (!str_is_digit(argv[i]))
-		{
-			printf("wrong format: \"%s\" must be a number\n", argv[i]);
-			return (1);
-		}
+			return (msg(STR_ARG, 1));
 		i++;
 	}
 	return (0);
-}
-
-int	check_arg(int argc, char **argv)
-{
-	int	error;
-
-	error = is_enough_arg(argc);
-	if (error == 0)
-		error = is_valid_arg(argv);
-	return (error);
 }

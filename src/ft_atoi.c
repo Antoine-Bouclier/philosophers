@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_is_digit.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 09:12:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/26 11:03:15 by abouclie         ###   ########.fr       */
+/*   Created: 2025/05/26 12:39:16 by abouclie          #+#    #+#             */
+/*   Updated: 2025/06/06 13:04:36 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-static int	ft_isdigit(int c)
+long	ft_atoi(const char *nptr, int *error)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
-}
+	long int	nb;
+	int			isneg;
+	int			i;
 
-int	str_is_digit(char *str)
-{
-	int	i;
-
+	nb = 0;
+	isneg = 1;
 	i = 0;
-	while (str[i])
+	if (nptr[i] == '+')
+		i++;
+	else if (nptr[i] == '-')
 	{
-		if (ft_isdigit(str[i]))
-			return (1);
+		isneg *= -1;
 		i++;
 	}
-	return (0);
+	while (nptr[i] >= 48 && nptr[i] <= 57)
+	{
+		nb = (nb * 10) + (nptr[i] - '0');
+		if ((nb > INT_MAX && isneg == 1) || nb < INT_MIN)
+			*error = 1;
+		i++;
+	}
+	nb *= isneg;
+	if (nb > INT_MAX || nb < INT_MIN)
+		*error = 1;
+	return (nb);
 }

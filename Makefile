@@ -9,33 +9,11 @@ D_INC   := inc/
 D_OBJ   := .obj/
 D_DEP   := .dep/
 
-D_UTL   := $(D_SRC)utils/
-D_PAR   := $(D_SRC)parsing/
-D_PRT   := $(D_SRC)print/
-D_RTN   := $(D_SRC)routine/
-D_INIT  := $(D_SRC)init/
-D_SRCS  := $(D_SRC) $(D_PAR) $(D_UTL) $(D_PRT) $(D_INIT) $(D_RTN)
+D_SRCS  := $(D_SRC)
 
-LST_SRC :=	main.c
+LST_SRC :=	exit.c ft_atoi.c init.c main.c philo_actions.c routine.c valid_arg.c
 
-LST_INIT :=	init_args.c \
-			init_philo.c \
-			init_time.c \
-			handle_thread.c
-
-LST_PAR :=	check_arg.c
-
-LST_RTN :=	routine.c \
-			philo_actions.c
-
-LST_UTL :=	str_is_digit.c \
-			ft_atoi.c \
-			free.c \
-			secure_mutex.c
-
-LST_PRT :=	print.c
-
-LST_SRCS := $(LST_SRC) $(LST_PAR) $(LST_INIT) $(LST_RTN) $(LST_UTL) $(LST_PRT)
+LST_SRCS := $(LST_SRC)
 INC      := $(addprefix $(D_INC), philosophers.h)
 
 OBJ  := $(addprefix $(D_OBJ), $(notdir $(LST_SRCS:.c=.o)))
