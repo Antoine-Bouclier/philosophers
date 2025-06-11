@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/10 14:53:34 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:40:05 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_time
 
 typedef struct s_mutex
 {
+	pthread_mutex_t	last_meal;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
 }				t_mutex;
@@ -82,6 +83,7 @@ int		philo_think(t_philo *philo);
 
 void	*routine(void *arg);
 void	*monitor_death(void *arg);
+int		must_stop(t_philo *philo);
 
 int		is_valid_arg(char **argv);
 

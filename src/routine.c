@@ -6,13 +6,13 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:37:55 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/10 14:56:38 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:54:24 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	must_stop(t_philo *philo)
+int	must_stop(t_philo *philo)
 {
 	if (pthread_mutex_lock(&philo->table->stop_mutex) != 0)
 		return (msg(STR_MTX_LOCK, 1));
@@ -31,15 +31,10 @@ static void	eating_routine(t_philo *philo)
 {
 	while (1)
 	{
-		if (must_stop(philo))
-			break ;
 		philo_eat(philo);
-		if (must_stop(philo))
-			break ;
 		philo_sleep(philo);
-		if (must_stop(philo))
-			break ;
 		philo_think(philo);
+		// usleep(100);
 	}
 }
 
@@ -56,7 +51,11 @@ static int	is_someone_dead(t_philo *philo)
 {
 	long	time_to_die;
 
+	if (pthread_mutex_lock(&philo->mutex.last_meal) != 0)
+		return (msg(STR_MTX_LOCK, 1));
 	time_to_die = philo->last_meal + philo->times->die;
+	if (pthread_mutex_unlock(&philo->mutex.last_meal) != 0)
+		return (msg(STR_MTX_UNLOCK, 1));
 	if (time_to_die < current_time_ms())
 	{
 		if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
@@ -80,6 +79,11 @@ void	*monitor_death(void *arg)
 		i = 0;
 		while (i < table->nb_philos)
 		{
+			if (pthread_mutex_lock(&table->print_mutex) != 0)
+				return (error_null(STR_MTX_LOCK));
+			printf("wesh\n");
+			if (pthread_mutex_unlock(&table->print_mutex) != 0)
+				return (error_null(STR_MTX_UNLOCK));
 			if (pthread_mutex_lock(&table->stop_mutex) != 0)
 				return (error_null(STR_MTX_LOCK));
 			if (is_someone_dead(&table->philo[i]))
