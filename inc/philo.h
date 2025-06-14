@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/11 12:40:05 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/13 09:07:51 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ typedef struct s_mutex
 
 typedef struct s_philo
 {
-	int			id;
-	t_mutex		mutex;
-	t_time		*times;
-	t_table		*table;
-	time_t		last_meal;
-	pthread_t	thread;
-}				t_philo;
+	int				id;
+	unsigned int	nb_eat;
+	t_mutex			mutex;
+	t_time			*times;
+	t_table			*table;
+	time_t			last_meal;
+	pthread_t		thread;
+}					t_philo;
 
 typedef struct s_table
 {
@@ -76,6 +77,8 @@ long	current_time_ms(void);
 int		init_table(t_table *table, char **argv);
 
 int		main(int argc, char **argv);
+
+int	has_stopped(t_table *table);
 
 int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);

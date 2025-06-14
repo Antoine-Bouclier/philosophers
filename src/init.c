@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 09:53:24 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/11 10:50:29 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/14 10:44:09 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static t_philo	*init_philo(t_table *table)
 	while (i < table->nb_philos)
 	{
 		philo[i].id = i;
+		philo[i].nb_eat = 0;
 		philo[i].times = &table->times;
 		if (pthread_mutex_init(&philo[i].mutex.right_fork, NULL) != 0)
 			return (error_null("Error! mutex init right fork failed."));
 		if (pthread_mutex_init(&philo[i].mutex.last_meal, NULL) != 0)
 			return (error_null("Error! mutex init last meal failed."));
-		philo[i].last_meal = current_time_ms();
 		philo[i].table = table;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:57:31 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/11 11:26:29 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/06/14 10:45:10 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	start_threads(t_table *table)
 	{
 		if (pthread_mutex_lock(&table->philo[i].mutex.last_meal) != 0)
 			return (msg(STR_MTX_LOCK, 1));
-		table->philo[i].last_meal = current_time_ms();
+		table->philo[i].last_meal = table->times.start_time;
 		if (pthread_mutex_unlock(&table->philo[i].mutex.last_meal) != 0)
 			return (msg(STR_MTX_UNLOCK, 1));
 		if (pthread_create(&table->philo[i].thread, NULL, &routine, &table->philo[i]) != 0)
@@ -56,6 +56,7 @@ static int	stop_threads(t_table *table)
 			return (msg("Error: failed to join thread", 1));
 		i++;
 	}
+	free_all(table);
 	return (0);
 }
 
@@ -75,7 +76,6 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	stop_threads(&table);
-	free_all(&table);
 	return (EXIT_SUCCESS);
 }
 
