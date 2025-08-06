@@ -5,34 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:20:23 by abouclie          #+#    #+#             */
-/*   Updated: 2025/06/03 12:19:13 by abouclie         ###   ########.fr       */
+/*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
+/*   Updated: 2025/08/06 11:32:27 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
+
+static int	start_threads(t_table *table)
+{
+	int	i;
+
+	table->start_time = current_time_ms() + (table->nb_philos * 10);
+	i = 0;
+	while (i < table->nb_philos)
+	{
+		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
+			return (error_msg(STR_MTX_LOCK, 1));
+		table->philos[i].last_meal = table->start_time;
+		if (pthread_mutex_unlock(&table->philos[i].meal_mutex) != 0)
+			return (error_msg(STR_MTX_UNLOCK, 1));
+		if (pthread_create(&table->philos[i].thread, NULL, &routine, &table->philos[i]) != 0)
+			return (error_msg("Error!, failed to create a new thread", 1));
+		i++;
+	}
+	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
+		return (1);
+	if (pthread_join(table->monitor, NULL) != 0)
+	{
+		free(table);
+		return (1);
+	}
+	return (0);
+}
+
+static int	stop_threads(t_table *table)
+{
+	int i;
+	
+	i = 0;
+	while (i < table->nb_philos)
+	{
+		if (pthread_join(table->philos[i].thread, NULL) != 0)
+			return (error_msg("Error: failed to join thread", 1));
+		i++;
+	}
+	free(table->philos);
+	free(table);
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	int	ret;
+	t_table	*table;
 
-	if (check_arg(argc, argv))
-		return (1);
-	init_args(argv, &data.args);
-	data.start_time = current_time_ms();
-	data.philo = malloc(sizeof(t_philo) * data.args.nb_philo);
-	if (!data.philo)
-		return (1);
-	pthread_mutex_init(&data.print_mutex, NULL);
-	pthread_mutex_init(&data.death_mutex, NULL);
-	pthread_mutex_init(&data.error_mutex, NULL);
-	init_philosophers(&data);
-	data.someone_died = 0;
-	start_thread(&data);
-	if (data.error != 0)
-		return (1);
-	if (wait_for_threads(&data) != 0)
-		return (1);
-	free_all(&data);
-	return (0);
+	ret = check_arg(argc, argv);
+	if (ret)
+		return (ret);
+	table = init(argv);
+	if (!table)
+		return (error_msg("Error! Init failed.", 1));
+	if (table->nb_philos > 1)
+		start_threads(table);
+	stop_threads(table);
+	return (ret);
 }

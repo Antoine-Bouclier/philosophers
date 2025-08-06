@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 12:39:16 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/29 11:18:17 by abouclie         ###   ########.fr       */
+/*   Created: 2025/08/06 09:33:50 by abouclie          #+#    #+#             */
+/*   Updated: 2025/08/06 09:34:25 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
+
+long	current_time_ms(void)
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000L));
+}
 
 long	ft_atoi(const char *nptr, int *error)
 {

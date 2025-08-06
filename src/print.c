@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_time.c                                        :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 13:58:48 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/30 08:28:04 by abouclie         ###   ########.fr       */
+/*   Created: 2025/08/05 09:44:29 by abouclie          #+#    #+#             */
+/*   Updated: 2025/08/06 09:15:34 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-long	current_time_ms(void)
+void	print_argv(t_table *table)
 {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000L));
+	printf("must_eat = %d\n", table->must_eat);
+	printf("nb_philo = %d\n", table->nb_philos);
+	printf("die_time = %d\n", table->die_time);
+	printf("eat_time = %d\n", table->eat_time);
+	printf("sleep_time = %d\n", table->sleep_time);
+}
+
+void	print_struct(t_table *table)
+{
+	print_argv(table);
+	
 }

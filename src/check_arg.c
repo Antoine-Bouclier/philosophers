@@ -5,26 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 08:23:51 by abouclie          #+#    #+#             */
-/*   Updated: 2025/05/27 09:36:10 by abouclie         ###   ########.fr       */
+/*   Created: 2025/08/05 08:22:08 by abouclie          #+#    #+#             */
+/*   Updated: 2025/08/05 08:45:01 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-static int	is_enough_arg(int argc)
+static int	ft_isdigit(int c)
 {
-	if (argc > 6)
-	{
-		printf("Too much arguments\n");
+	if (c >= 48 && c <= 57)
 		return (1);
-	}
-	else if (argc < 5)
-	{
-		printf("Missing arguments\n");
-		return (1);
-	}
 	return (0);
+}
+
+static int	str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 static int	is_valid_arg(char **argv)
@@ -35,10 +41,7 @@ static int	is_valid_arg(char **argv)
 	while (argv[i])
 	{
 		if (!str_is_digit(argv[i]))
-		{
-			printf("wrong format: \"%s\" must be a number\n", argv[i]);
-			return (1);
-		}
+			return (error_msg("Wrong format! Digit argument only.", 1));
 		i++;
 	}
 	return (0);
@@ -46,10 +49,11 @@ static int	is_valid_arg(char **argv)
 
 int	check_arg(int argc, char **argv)
 {
-	int	error;
-
-	error = is_enough_arg(argc);
-	if (error == 0)
-		error = is_valid_arg(argv);
-	return (error);
+	if (argc - 1 == 0)
+		return (error_msg(STR_ARG, EXIT_FAILURE));
+	if (argc - 1 < 4 || argc - 1 > 5)
+		return (error_msg("Wrong number of argument (4 or 5)\n"STR_ARG, EXIT_FAILURE));
+	if (is_valid_arg(argv))
+		return (EXIT_FAILURE);
+	return (0);
 }
