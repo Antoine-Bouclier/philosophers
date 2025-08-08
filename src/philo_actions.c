@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 09:19:05 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/08 09:20:49 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	update_last_meal(t_philo *philo)
 	if (pthread_mutex_lock(&philo->meal_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
 	philo->last_meal = current_time_ms();
-	pthread_mutex_unlock(&philo->meal_mutex;
+	pthread_mutex_unlock(&philo->meal_mutex);
 	return(0);
 }
 
