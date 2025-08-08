@@ -1,4 +1,4 @@
-NAME = philosophers
+NAME = philo
 
 CC      := cc
 CFLAGS  := -Wall -Wextra -Werror -MMD -pthread
@@ -11,7 +11,7 @@ D_DEP   := .dep/
 
 D_SRCS  := $(D_SRC)
 
-LST_SRC :=	main.c init.c check_arg.c exit.c utils.c print.c routine.c philo_actions.c
+LST_SRC :=	main.c init.c check_arg.c exit.c utils.c print.c routine.c philo_actions.c priority_queue.c
 
 LST_SRCS := $(LST_SRC)
 INC      := $(addprefix $(D_INC), philosophers.h)

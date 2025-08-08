@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/06 11:32:27 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/08 08:25:54 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	start_threads(t_table *table)
 		return (1);
 	if (pthread_join(table->monitor, NULL) != 0)
 	{
-		free(table);
+		free_all(table);
 		return (1);
 	}
 	return (0);
@@ -50,8 +50,7 @@ static int	stop_threads(t_table *table)
 			return (error_msg("Error: failed to join thread", 1));
 		i++;
 	}
-	free(table->philos);
-	free(table);
+	free_all(table);
 	return (0);
 }
 

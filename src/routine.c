@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/06 11:42:18 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/08 09:19:55 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	has_stopped(t_table *table)
 	if (pthread_mutex_lock(&table->simulation_mutex) != 0)
 		return (-1);
 	stopped = table->simulation_over;
-	if (pthread_mutex_unlock(&table->simulation_mutex) != 0)
-		return (-1);
+	pthread_mutex_unlock(&table->simulation_mutex);
 	return (stopped);
 }
 
@@ -49,48 +48,48 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-int	is_someone_dead(t_table *table)
+int is_someone_dead(t_table *table)
 {
-	int				i;
-	long			time_to_die;
+	int		i;
+	long	time_to_die;
 
 	i = 0;
 	while (i < table->nb_philos)
 	{
 		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
-			return (error_msg(STR_MTX_LOCK, 1));
+			return (-2);
 		time_to_die = table->philos[i].last_meal + table->die_time;
-		if (pthread_mutex_unlock(&table->philos[i].meal_mutex) != 0)
-			return (error_msg(STR_MTX_UNLOCK, 1));
+		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		if (time_to_die < current_time_ms())
-		{
-			if (pthread_mutex_lock(&table->print_mutex) != 0)
-				return (error_msg(STR_MTX_LOCK, 1));
-			printf("Monitor: philosopher %d is dead. Stopping simulation.\n", table->philos[i].id);
-			if (pthread_mutex_unlock(&table->print_mutex) != 0)
-				return (error_msg(STR_MTX_UNLOCK, 1));
-			return (1);
-		}
+			return (i);
 		i++;
-		usleep(1000);
 	}
-	return (0);
+	return (-1);
 }
 
-void	*monitor_death(void *arg)
+void *monitor_death(void *arg)
 {
 	t_table	*table;
+	int		dead_idx;
 
 	table = (t_table *)arg;
 	while (1)
 	{
-		if (is_someone_dead(table))
+		dead_idx = is_someone_dead(table);
+		if (dead_idx >= 0)
 		{
+			if (pthread_mutex_lock(&table->print_mutex) != 0)
+				return (NULL);
+			printf("%ld %d died\n", current_time_ms() - table->start_time,
+				table->philos[dead_idx].id + 1);
 			if (pthread_mutex_lock(&table->simulation_mutex) != 0)
-				return (error_null(STR_MTX_LOCK));
+			{
+				pthread_mutex_unlock(&table->print_mutex);
+				return (NULL);
+			}
 			table->simulation_over = 1;
-			if (pthread_mutex_unlock(&table->simulation_mutex) != 0)
-				return (error_null(STR_MTX_UNLOCK));
+			pthread_mutex_unlock(&table->simulation_mutex);
+			pthread_mutex_unlock(&table->print_mutex);
 			return (NULL);
 		}
 		usleep(1000);

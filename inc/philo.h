@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/06 11:45:26 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/08 08:14:31 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef struct s_philo
 	t_table			*table;
 }				t_philo;
 
+typedef struct s_priority
+{
+	t_philo			**queue;
+	int				size;
+	int				capacity;
+	pthread_mutex_t	mutex;
+}				t_priority;
 
 typedef struct s_table
 {
@@ -59,12 +66,14 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_t		monitor;
 	t_philo			*philos;
+	t_priority		priority_queue; 
 }				t_table;
 
 int		check_arg(int argc, char **argv);
 
 int		error_msg(char *str, int ret);
 void	*error_null(char *str);
+void	free_all(t_table *table);
 
 long	current_time_ms(void);
 long	ft_atoi(const char *nptr, int *error);
