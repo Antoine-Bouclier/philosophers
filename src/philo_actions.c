@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 09:20:49 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:31:31 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,20 @@ static	int	alternate_order(t_philo *philo)
 
 static int	print_eating(t_philo *philo)
 {
+	long	time;
+
+	if (has_stopped(philo->table))
+		return (1);
 	if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
 	if (!has_stopped(philo->table))
 	{
-		printf("%d has taken the left fork\n", philo->id);
-		printf("%d has taken the right fork\n", philo->id);
-		printf("%d is eating\n", philo->id);
+		time = current_time_ms() - philo->table->start_time,
+		printf("%ld %d has taken a fork\n", time, philo->id);
+		printf("%ld %d has taken a fork\n", time, philo->id);
+		printf("%ld %d is eating\n", time, philo->id);
 	}
-	if (pthread_mutex_unlock(&philo->table->print_mutex) != 0)
-		return (error_msg(STR_MTX_UNLOCK, 1));
+	pthread_mutex_unlock(&philo->table->print_mutex);
 	return (0);
 }
 
@@ -57,7 +61,13 @@ static int	check_must_eat(t_philo *philo)
 	if (philo->table->must_eat != 0)
 	{
 		if (philo->meals_eaten == philo->table->must_eat)
+		{
+			if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
+				return (error_msg(STR_MTX_LOCK, 1));
+			printf(RED"%d eat enough\n"RESET, philo->id);
+			pthread_mutex_unlock(&philo->table->print_mutex);
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -98,7 +108,8 @@ int	philo_sleep(t_philo *philo)
 		return (1);
 	if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
-	printf("%d is sleeping\n", philo->id);
+	printf("%ld %d is sleeping\n", current_time_ms() - philo->table->start_time,
+				philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 	usleep(philo->table->sleep_time * 1000);
 	return (0);
@@ -110,7 +121,7 @@ int	philo_think(t_philo *philo)
 		return (1);
 	if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
-	printf("%d is thinking\n", philo->id);
+	printf("%ld %d is thinking\n", current_time_ms() - philo->table->start_time, philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 	return (0);
 }

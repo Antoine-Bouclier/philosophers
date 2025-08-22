@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 08:14:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:56:41 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 YELLOW "optional: <number_of_times_each_philo_must_eat>" RESET
 
 # define STR_MTX_LOCK "Error! mutex lock failed."
-# define STR_MTX_UNLOCK "Error! mutex unlock failed."
 
 typedef struct s_table	t_table;
 
@@ -44,21 +43,13 @@ typedef struct s_philo
 	t_table			*table;
 }				t_philo;
 
-typedef struct s_priority
-{
-	t_philo			**queue;
-	int				size;
-	int				capacity;
-	pthread_mutex_t	mutex;
-}				t_priority;
-
 typedef struct s_table
 {
 	int				nb_philos;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				must_eat;		// -1 : illimité
+	int				must_eat;
 	long			start_time;
 	int				simulation_over;
 	pthread_mutex_t	simulation_mutex;
@@ -66,7 +57,6 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_t		monitor;
 	t_philo			*philos;
-	t_priority		priority_queue; 
 }				t_table;
 
 int		check_arg(int argc, char **argv);
@@ -90,6 +80,11 @@ void	destroy_mutex(t_table *table);
 int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
+
+void	wait_until(long target_time);
+
+void	*routine_alone(void *arg);
+int		start_one_thread(t_table *table);
 
 /* A supprimer */
 void	print_argv(t_table *table);

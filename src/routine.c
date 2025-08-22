@@ -6,17 +6,11 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 09:19:55 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 09:46:04 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	wait_until(long target_time)
-{
-	while (current_time_ms() < target_time)
-		usleep(100);
-}
 
 int	has_stopped(t_table *table)
 {
@@ -37,11 +31,11 @@ void	*routine(void *arg)
 	wait_until(philo->table->start_time);
 	while (has_stopped(philo->table) == 0)
 	{
+		if (philo_think(philo) != 0)
+			return (NULL);
 		if (philo_eat(philo) != 0)
 			return (NULL);
 		if (philo_sleep(philo) != 0)
-			return (NULL);
-		if (philo_think(philo) != 0)
 			return (NULL);
 		usleep(100);
 	}
@@ -81,15 +75,15 @@ void *monitor_death(void *arg)
 			if (pthread_mutex_lock(&table->print_mutex) != 0)
 				return (NULL);
 			printf("%ld %d died\n", current_time_ms() - table->start_time,
-				table->philos[dead_idx].id + 1);
+				table->philos[dead_idx].id);
 			if (pthread_mutex_lock(&table->simulation_mutex) != 0)
 			{
 				pthread_mutex_unlock(&table->print_mutex);
 				return (NULL);
 			}
 			table->simulation_over = 1;
-			pthread_mutex_unlock(&table->simulation_mutex);
 			pthread_mutex_unlock(&table->print_mutex);
+			pthread_mutex_unlock(&table->simulation_mutex);
 			return (NULL);
 		}
 		usleep(1000);

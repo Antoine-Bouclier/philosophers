@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 08:25:54 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:57:43 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ static int	start_threads(t_table *table)
 		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
 			return (error_msg(STR_MTX_LOCK, 1));
 		table->philos[i].last_meal = table->start_time;
-		if (pthread_mutex_unlock(&table->philos[i].meal_mutex) != 0)
-			return (error_msg(STR_MTX_UNLOCK, 1));
+		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, &routine, &table->philos[i]) != 0)
 			return (error_msg("Error!, failed to create a new thread", 1));
 		i++;
 	}
 	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
-		return (1);
+	{
+		free_all(table);
+		return (error_msg("Error!, failed to create a new thread", 1));
+	}
 	if (pthread_join(table->monitor, NULL) != 0)
 	{
 		free_all(table);
-		return (1);
+		return (error_msg("Error!, failed to join the monitor thread", 1));
 	}
 	return (0);
 }
@@ -50,6 +52,7 @@ static int	stop_threads(t_table *table)
 			return (error_msg("Error: failed to join thread", 1));
 		i++;
 	}
+	// destroy_mutex(table);
 	free_all(table);
 	return (0);
 }
@@ -66,7 +69,11 @@ int	main(int argc, char **argv)
 	if (!table)
 		return (error_msg("Error! Init failed.", 1));
 	if (table->nb_philos > 1)
+	{
 		start_threads(table);
-	stop_threads(table);
+		stop_threads(table);
+	}
+	else
+		start_one_thread(table);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/06 11:48:50 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:24:26 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ static int	argv_to_struct(char **argv, t_table *table)
 	table->eat_time = ft_atoi(argv[3], &error);
 	table->sleep_time = ft_atoi(argv[4], &error);
 	return (error);
-}
-
-static void	init_philo(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->nb_philos)
-	{
-		table->philos[i].id = i;
-		table->philos[i].meals_eaten = 0;
-		table->philos[i].table = table;
-		table->philos[i].right_fork = &table->forks[i];
-		table->philos[i].left_fork = &table->forks[(i + table->nb_philos - 1) % table->nb_philos];
-		i++;
-	}
 }
 
 static int	init_mutex(t_table *table)
@@ -65,6 +49,25 @@ static int	init_mutex(t_table *table)
 		i++;
 	}
 	return (0);
+}
+
+static void	init_philo(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->nb_philos)
+	{
+		table->philos[i].id = i;
+		table->philos[i].meals_eaten = 0;
+		table->philos[i].table = table;
+		table->philos[i].right_fork = &table->forks[i];
+		if (table->nb_philos > 1)
+			table->philos[i].left_fork = &table->forks[(i + table->nb_philos - 1) % table->nb_philos];
+		else
+			table->philos[i].left_fork = NULL;
+		i++;
+	}
 }
 
 static int	init_table(t_table *table)

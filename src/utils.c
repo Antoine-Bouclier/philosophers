@@ -6,11 +6,17 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:33:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/06 09:34:25 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:44:51 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	wait_until(long target_time)
+{
+	while (current_time_ms() < target_time)
+		usleep(100);
+}
 
 long	current_time_ms(void)
 {

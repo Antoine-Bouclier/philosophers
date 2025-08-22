@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:25:28 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/08 08:25:30 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:47:34 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ void	free_all(t_table *table)
 {
 	free(table->forks);
 	free(table->philos);
-	// free(table->priority_queue.queue);
 	free(table);
 }
