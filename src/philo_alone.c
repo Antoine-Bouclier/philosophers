@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 08:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 09:04:19 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/22 10:40:15 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*routine_alone(void *arg)
 	usleep(philo->table->die_time * 1000);
 	time = current_time_ms() - philo->table->start_time;
 	printf("%ld %d died", time, philo->id);
+	pthread_mutex_unlock(philo->right_fork);
 	return (NULL);
 }
 
