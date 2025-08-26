@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:33:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 08:44:51 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 07:51:22 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@ void	wait_until(long target_time)
 {
 	while (current_time_ms() < target_time)
 		usleep(100);
+}
+
+void	usleep_check_death(t_philo *philo, int time_to_wait)
+{
+	long	start;
+	int		stopped;
+
+	start = current_time_ms();
+	while (current_time_ms() - start < time_to_wait)
+	{
+		stopped = has_stopped(philo->table);
+		if (stopped == 1 || stopped == -1)
+			break ;
+		usleep(500);
+	}
 }
 
 long	current_time_ms(void)

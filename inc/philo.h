@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 08:56:41 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 07:52:28 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	free_all(t_table *table);
 
 long	current_time_ms(void);
 long	ft_atoi(const char *nptr, int *error);
+void	usleep_check_death(t_philo *philo, int time_to_wait);
 
 t_table	*init(char **argv);
 

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 08:31:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 08:01:14 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	philo_eat(t_philo *philo)
 	philo->meals_eaten += 1;
 	if (update_last_meal(philo))
 		return (1);
-	usleep(philo->table->eat_time * 1000);
+	usleep_check_death(philo, philo->table->eat_time);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 	return (0);
@@ -111,7 +111,7 @@ int	philo_sleep(t_philo *philo)
 	printf("%ld %d is sleeping\n", current_time_ms() - philo->table->start_time,
 				philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
-	usleep(philo->table->sleep_time * 1000);
+	usleep_check_death(philo, philo->table->sleep_time);
 	return (0);
 }
 

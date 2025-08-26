@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:22:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 10:47:04 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 08:07:58 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	is_valid_arg(char **argv)
 	while (argv[i])
 	{
 		if (!str_is_digit(argv[i]))
-			return (error_msg("Wrong format! Digit argument only.", 1));
+			return (error_msg("Wrong format! Positive digit argument only.", 1));
 		i++;
 	}
 	return (0);
