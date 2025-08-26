@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 09:30:53 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:13:29 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,6 @@ static int	print_eating(t_philo *philo)
 		printf("%ld %d is eating\n", time, philo->id);
 	}
 	pthread_mutex_unlock(&philo->table->print_mutex);
-	return (0);
-}
-
-int	check_must_eat(t_philo *philo)
-{
-	if (philo->table->must_eat != 0)
-	{
-		if (philo->meals_eaten == philo->table->must_eat)
-			return (1);
-	}
 	return (0);
 }
 

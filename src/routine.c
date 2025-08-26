@@ -6,22 +6,11 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 10:08:07 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:27:15 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	has_stopped(t_table *table)
-{
-	int	stopped;
-
-	if (pthread_mutex_lock(&table->simulation_mutex) != 0)
-		return (-1);
-	stopped = table->simulation_over;
-	pthread_mutex_unlock(&table->simulation_mutex);
-	return (stopped);
-}
 
 void	*routine(void *arg)
 {
@@ -42,41 +31,6 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-int is_someone_dead(t_table *table)
-{
-	int		i;
-	long	time_to_die;
-
-	i = 0;
-	while (i < table->nb_philos)
-	{
-		if (check_must_eat(&table->philos[i]))
-			break ;
-		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
-			return (-2);
-		time_to_die = table->philos[i].last_meal + table->die_time;
-		pthread_mutex_unlock(&table->philos[i].meal_mutex);
-		if (time_to_die < current_time_ms())
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int	all_philo_eat(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->nb_philos)
-	{
-		if (!check_must_eat(&table->philos[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void *monitor_death(void *arg)
 {
 	t_table	*table;
@@ -88,13 +42,7 @@ void *monitor_death(void *arg)
 		dead_idx = is_someone_dead(table);
 		if (all_philo_eat(table))
 		{
-			if (pthread_mutex_lock(&table->simulation_mutex) != 0)
-			{
-				pthread_mutex_unlock(&table->print_mutex);
-				return (NULL);
-			}
-			table->simulation_over = 1;
-			pthread_mutex_unlock(&table->simulation_mutex);
+			set_stop_simulation(table);
 			return (NULL);
 		}
 		if (dead_idx >= 0)
@@ -103,14 +51,8 @@ void *monitor_death(void *arg)
 				return (NULL);
 			printf("%ld %d died\n", current_time_ms() - table->start_time,
 				table->philos[dead_idx].id);
-			if (pthread_mutex_lock(&table->simulation_mutex) != 0)
-			{
-				pthread_mutex_unlock(&table->print_mutex);
-				return (NULL);
-			}
-			table->simulation_over = 1;
+			set_stop_simulation(table);
 			pthread_mutex_unlock(&table->print_mutex);
-			pthread_mutex_unlock(&table->simulation_mutex);
 			return (NULL);
 		}
 		usleep(1000);

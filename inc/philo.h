@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 09:57:36 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:28:13 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,10 @@ void	wait_until(long target_time);
 void	*routine_alone(void *arg);
 int		start_one_thread(t_table *table);
 
-int	all_philo_eat(t_table *table);
+int		all_philo_eat(t_table *table);
 
+void	set_stop_simulation(t_table *table);
+int		is_someone_dead(t_table *table);
 /* A supprimer */
 void	print_argv(t_table *table);
 
