@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 07:52:28 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:57:36 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ void	destroy_mutex(t_table *table);
 int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
+int		check_must_eat(t_philo *philo);
 
 void	wait_until(long target_time);
 
 void	*routine_alone(void *arg);
 int		start_one_thread(t_table *table);
+
+int	all_philo_eat(t_table *table);
 
 /* A supprimer */
 void	print_argv(t_table *table);

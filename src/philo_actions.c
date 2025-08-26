@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 08:01:14 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:30:53 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,12 @@ static int	print_eating(t_philo *philo)
 	return (0);
 }
 
-static int	check_must_eat(t_philo *philo)
+int	check_must_eat(t_philo *philo)
 {
 	if (philo->table->must_eat != 0)
 	{
 		if (philo->meals_eaten == philo->table->must_eat)
-		{
-			if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
-				return (error_msg(STR_MTX_LOCK, 1));
-			printf(RED"%d eat enough\n"RESET, philo->id);
-			pthread_mutex_unlock(&philo->table->print_mutex);
 			return (1);
-		}
 	}
 	return (0);
 }
