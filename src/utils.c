@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:33:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:13:34 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:33:56 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	usleep_check_death(t_philo *philo, int time_to_wait)
 
 long	current_time_ms(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000L));
 }

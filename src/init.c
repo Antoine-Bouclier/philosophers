@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 08:24:26 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:38:31 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void	init_philo(t_table *table)
 		table->philos[i].table = table;
 		table->philos[i].right_fork = &table->forks[i];
 		if (table->nb_philos > 1)
-			table->philos[i].left_fork = &table->forks[(i + table->nb_philos - 1) % table->nb_philos];
+			table->philos[i].left_fork = &table->forks[(i
+					+ table->nb_philos - 1) % table->nb_philos];
 		else
 			table->philos[i].left_fork = NULL;
 		i++;
@@ -92,11 +93,11 @@ static int	init_table(t_table *table)
 	return (0);
 }
 
-t_table *init(char **argv)
+t_table	*init(char **argv)
 {
-	t_table *table;
+	t_table	*table;
 	int		ret;
-	
+
 	table = malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);

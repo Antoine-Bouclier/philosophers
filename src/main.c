@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/22 08:57:43 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:37:28 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static int	start_threads(t_table *table)
 			return (error_msg(STR_MTX_LOCK, 1));
 		table->philos[i].last_meal = table->start_time;
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
-		if (pthread_create(&table->philos[i].thread, NULL, &routine, &table->philos[i]) != 0)
+		if (pthread_create(&table->philos[i].thread, NULL, &routine,
+				&table->philos[i]) != 0)
 			return (error_msg("Error!, failed to create a new thread", 1));
 		i++;
 	}
@@ -43,8 +44,8 @@ static int	start_threads(t_table *table)
 
 static int	stop_threads(t_table *table)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < table->nb_philos)
 	{
@@ -59,7 +60,7 @@ static int	stop_threads(t_table *table)
 
 int	main(int argc, char **argv)
 {
-	int	ret;
+	int		ret;
 	t_table	*table;
 
 	ret = check_arg(argc, argv);

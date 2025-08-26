@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:22:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 08:07:58 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:39:30 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	is_valid_arg(char **argv)
 	while (argv[i])
 	{
 		if (!str_is_digit(argv[i]))
-			return (error_msg("Wrong format! Positive digit argument only.", 1));
+			return (error_msg("Wrong format! Positive digit argument only."
+					, 1));
 		i++;
 	}
 	return (0);
@@ -55,7 +56,8 @@ int	check_arg(int argc, char **argv)
 	if (argc - 1 == 0)
 		return (error_msg(STR_ARG, EXIT_FAILURE));
 	if (argc - 1 < 4 || argc - 1 > 5)
-		return (error_msg("Wrong number of argument (4 or 5)\n"STR_ARG, EXIT_FAILURE));
+		return (error_msg("Wrong number of argument (4 or 5)\n"
+				STR_ARG, EXIT_FAILURE));
 	if (is_valid_arg(argv))
 		return (EXIT_FAILURE);
 	if (ft_atoi(argv[1], &error) <= 0)

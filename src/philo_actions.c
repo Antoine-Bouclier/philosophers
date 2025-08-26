@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:13:29 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:36:06 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	print_eating(t_philo *philo)
 		return (error_msg(STR_MTX_LOCK, 1));
 	if (!has_stopped(philo->table))
 	{
-		time = current_time_ms() - philo->table->start_time,
+		time = current_time_ms() - philo->table->start_time;
 		printf("%ld %d has taken a fork\n", time, philo->id);
 		printf("%ld %d has taken a fork\n", time, philo->id);
 		printf("%ld %d is eating\n", time, philo->id);
@@ -62,7 +62,7 @@ static int	update_last_meal(t_philo *philo)
 		return (error_msg(STR_MTX_LOCK, 1));
 	philo->last_meal = current_time_ms();
 	pthread_mutex_unlock(&philo->meal_mutex);
-	return(0);
+	return (0);
 }
 
 int	philo_eat(t_philo *philo)
@@ -93,7 +93,7 @@ int	philo_sleep(t_philo *philo)
 	if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
 	printf("%ld %d is sleeping\n", current_time_ms() - philo->table->start_time,
-				philo->id);
+		philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 	usleep_check_death(philo, philo->table->sleep_time);
 	return (0);
@@ -105,7 +105,8 @@ int	philo_think(t_philo *philo)
 		return (1);
 	if (pthread_mutex_lock(&philo->table->print_mutex) != 0)
 		return (error_msg(STR_MTX_LOCK, 1));
-	printf("%ld %d is thinking\n", current_time_ms() - philo->table->start_time, philo->id);
+	printf("%ld %d is thinking\n", current_time_ms() - philo->table->start_time,
+		philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 	return (0);
 }

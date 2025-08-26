@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:27:15 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:34:16 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-void *monitor_death(void *arg)
+void	*monitor_death(void *arg)
 {
 	t_table	*table;
 	int		dead_idx;
