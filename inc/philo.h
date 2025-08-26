@@ -6,25 +6,25 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:28:13 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:41:31 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-# define Philo_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <sys/time.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <sys/time.h>
 
-#define RED    "\033[31m"
-#define YELLOW "\033[33m"
-#define RESET  "\033[0m"
+# define RED    "\033[31m"
+# define YELLOW "\033[33m"
+# define RESET  "\033[0m"
 
-#define STR_ARG "./philo " RED "<nb_of_philo> <time_to_die> <time_to_eat> <time_to_sleep> " RESET \
+# define STR_ARG "./philo " RED "<nb_of_philo> <time_to_die> <time_to_eat> <time_to_sleep> " RESET \
 YELLOW "optional: <number_of_times_each_philo_must_eat>" RESET
 
 # define STR_MTX_LOCK "Error! mutex lock failed."
@@ -92,7 +92,5 @@ int		all_philo_eat(t_table *table);
 
 void	set_stop_simulation(t_table *table);
 int		is_someone_dead(t_table *table);
-/* A supprimer */
-void	print_argv(t_table *table);
 
 # endif
