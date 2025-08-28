@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 09:22:46 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:22:35 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,18 @@ static int	start_threads(t_table *table)
 	while (i < table->nb_philos)
 	{
 		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
-			return (error_msg(STR_MTX_LOCK, 1));
+			return (error_msg(table, STR_MTX_LOCK, 1, 1));
 		table->philos[i].last_meal = table->start_time;
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, &routine,
 				&table->philos[i]) != 0)
-			return (error_msg("Error!, failed to create a new thread", 1));
+			return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
 		i++;
 	}
 	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
-	{
-		free_all(table);
-		return (error_msg("Error!, failed to create a new thread", 1));
-	}
+		return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
 	if (pthread_join(table->monitor, NULL) != 0)
-	{
-		free_all(table);
-		return (error_msg("Error!, failed to join the monitor thread", 1));
-	}
+		return (error_msg(table, "Error!, failed to join the monitor thread", 1, 1));
 	return (0);
 }
 
@@ -50,7 +44,7 @@ static int	stop_threads(t_table *table)
 	while (i < table->nb_philos)
 	{
 		if (pthread_join(table->philos[i].thread, NULL) != 0)
-			return (error_msg("Error: failed to join thread", 1));
+			return (error_msg(table, "Error: failed to join thread", 1, 1));
 		i++;
 	}
 	return (0);
@@ -66,7 +60,7 @@ int	main(int argc, char **argv)
 		return (ret);
 	table = init(argv);
 	if (!table)
-		return (error_msg("Error! Init failed.", 1));
+		return (error_msg(table, "Error! Init failed.", 1, 0));
 	if (table->nb_philos > 1)
 	{
 		start_threads(table);

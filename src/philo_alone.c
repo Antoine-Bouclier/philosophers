@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 08:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 09:21:49 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:03:21 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*routine_alone(void *arg)
 	wait_until(philo->table->start_time);
 	if (pthread_mutex_lock(philo->right_fork) != 0)
 	{
-		error_msg(STR_MTX_LOCK, 1);
+		error_msg(philo->table, STR_MTX_LOCK, 1, 1);
 		return (NULL);
 	}
 	time = current_time_ms() - philo->table->start_time;
@@ -39,8 +39,8 @@ int	start_one_thread(t_table *table)
 	table->philos[0].last_meal = table->start_time;
 	if (pthread_create(&table->philos[0].thread, NULL, &routine_alone,
 			&table->philos[0]) != 0)
-		return (error_msg("Error!, failed to create a new thread", 1));
+		return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
 	if (pthread_join(table->philos[0].thread, NULL) != 0)
-		return (error_msg("Error!, failed to join the philosopher", 1));
+		return (error_msg(table, "Error!, failed to join the philosopher", 1, 1));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:41:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:59:05 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ typedef struct s_table
 
 int		check_arg(int argc, char **argv);
 
-int		error_msg(char *str, int ret);
-void	*error_null(char *str);
+int		error_msg(t_table *table, char *str, int ret, int mutex_init);
+void	*error_null(t_table *table, char *str, int mutex_init);
 void	free_all(t_table *table);
 
 long	current_time_ms(void);
