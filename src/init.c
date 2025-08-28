@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:38:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:14:50 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	init_mutex(t_table *table)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
-			destroy_mutex_forks(table->forks, i - 1);
+			pthread_mutex_destroy(&table->print_mutex);
+			pthread_mutex_destroy(&table->simulation_mutex);
 			return (1);
 		}
 		i++;

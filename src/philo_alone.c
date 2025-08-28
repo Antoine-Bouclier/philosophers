@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 08:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:33:07 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:21:49 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int	start_one_thread(t_table *table)
 			&table->philos[0]) != 0)
 		return (error_msg("Error!, failed to create a new thread", 1));
 	if (pthread_join(table->philos[0].thread, NULL) != 0)
-	{
-		free_all(table);
 		return (error_msg("Error!, failed to join the philosopher", 1));
-	}
 	return (0);
 }
