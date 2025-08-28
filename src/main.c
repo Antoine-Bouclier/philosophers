@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:37:28 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 07:55:07 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	stop_threads(t_table *table)
 			return (error_msg("Error: failed to join thread", 1));
 		i++;
 	}
-	// destroy_mutex(table);
+	destroy_mutex(table);
 	free_all(table);
 	return (0);
 }

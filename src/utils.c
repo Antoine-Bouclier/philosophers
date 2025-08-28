@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:33:50 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:33:56 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/28 08:12:39 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ void	wait_until(long target_time)
 
 int	check_must_eat(t_philo *philo)
 {
+	if (pthread_mutex_lock(&philo->meal_mutex) != 0)
+		return (error_msg(STR_MTX_LOCK, 1));
 	if (philo->table->must_eat != 0)
 	{
 		if (philo->meals_eaten == philo->table->must_eat)
+		{
+			pthread_mutex_unlock(&philo->meal_mutex);
 			return (1);
+		}
 	}
+	pthread_mutex_unlock(&philo->meal_mutex);
 	return (0);
 }
 
