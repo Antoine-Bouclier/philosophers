@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 12:59:05 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 08:42:25 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define RED    "\033[31m"
-# define YELLOW "\033[33m"
-# define RESET  "\033[0m"
-
-# define STR_ARG "./philo " RED "<nb_of_philo> <time_to_die> <time_to_eat> <time_to_sleep> " RESET \
-YELLOW "optional: <number_of_times_each_philo_must_eat>" RESET
+# define ARG_1 "./philo "
+# define ARG_2 "<nb_of_philo> <time_to_die> <time_to_eat> <time_to_sleep> "
+# define ARG_3 "optional: <number_of_times_each_philo_must_eat>"
 
 # define STR_MTX_LOCK "Error! mutex lock failed."
 
@@ -93,4 +90,8 @@ int		all_philo_eat(t_table *table);
 void	set_stop_simulation(t_table *table);
 int		is_someone_dead(t_table *table);
 
-# endif
+int		alternate_order(t_philo *philo);
+int		print_eating(t_philo *philo);
+int		update_last_meal(t_philo *philo);
+
+#endif

@@ -1,2 +1,5 @@
 tester
 errors_log
+.obj
+.dep
+philo

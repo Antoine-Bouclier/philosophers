@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 13:22:35 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 08:00:33 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@ static int	start_threads(t_table *table)
 		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, &routine,
 				&table->philos[i]) != 0)
-			return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
+			return (error_msg(table,
+					"Error!, failed to create a new thread", 1, 1));
 		i++;
 	}
 	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
-		return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
+		return (error_msg(table,
+				"Error!, failed to create a new thread", 1, 1));
 	if (pthread_join(table->monitor, NULL) != 0)
-		return (error_msg(table, "Error!, failed to join the monitor thread", 1, 1));
+		return (error_msg(table,
+				"Error!, failed to join the monitor thread", 1, 1));
 	return (0);
 }
 

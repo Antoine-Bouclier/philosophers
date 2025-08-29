@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 08:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 13:03:21 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 08:04:27 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	start_one_thread(t_table *table)
 	table->philos[0].last_meal = table->start_time;
 	if (pthread_create(&table->philos[0].thread, NULL, &routine_alone,
 			&table->philos[0]) != 0)
-		return (error_msg(table, "Error!, failed to create a new thread", 1, 1));
+		return (error_msg(table,
+				"Error!, failed to create a new thread", 1, 1));
 	if (pthread_join(table->philos[0].thread, NULL) != 0)
-		return (error_msg(table, "Error!, failed to join the philosopher", 1, 1));
+		return (error_msg(table,
+				"Error!, failed to join the philosopher", 1, 1));
 	return (0);
 }

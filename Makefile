@@ -11,7 +11,7 @@ D_DEP   := .dep/
 
 D_SRCS  := $(D_SRC)
 
-LST_SRC :=	main.c init.c check_arg.c exit.c utils.c routine.c philo_actions.c philo_alone.c routine_utils.c
+LST_SRC :=	main.c init.c check_arg.c exit.c utils.c routine.c philo_actions.c eating.c philo_alone.c routine_utils.c
 
 LST_SRCS := $(LST_SRC)
 INC      := $(addprefix $(D_INC), philosophers.h)
