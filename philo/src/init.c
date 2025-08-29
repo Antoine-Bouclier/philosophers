@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/28 09:14:50 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:11:15 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	init_philo(t_table *table)
 		table->philos[i].id = i;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].table = table;
+		table->philos[i].eating = 0;
 		table->philos[i].right_fork = &table->forks[i];
 		if (table->nb_philos > 1)
 			table->philos[i].left_fork = &table->forks[(i

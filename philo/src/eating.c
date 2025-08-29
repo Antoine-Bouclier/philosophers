@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 08:02:42 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 08:03:10 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:13:19 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	alternate_order(t_philo *philo)
 			pthread_mutex_unlock(philo->left_fork);
 			return (error_msg(philo->table, STR_MTX_LOCK, 1, 1));
 		}
+		philo->eating = 1;
 	}
 	else
 	{
