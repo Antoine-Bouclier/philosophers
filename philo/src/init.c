@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 12:11:15 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:33:08 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,6 @@ t_table	*init(char **argv)
 	}
 	if (init_table(table))
 	{
-		if (table->philos)
-			free(table->philos);
-		if (table->forks)
-			free(table->forks);
-		destroy_mutex(table);
 		free(table);
 		return (NULL);
 	}
