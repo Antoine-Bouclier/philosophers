@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:22:08 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 10:51:31 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/08/30 11:17:19 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ int	check_arg(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (ft_atoi(argv[1], &error) <= 0)
 		return (error_msg(NULL, ARG_1 ARG_2 ARG_3, EXIT_FAILURE, 0));
+	if (ft_atoi(argv[5], &error) == 0)
+		return (error_msg(NULL, "Philospher can´t eat.\n", 1, 0));
 	return (0);
 }
