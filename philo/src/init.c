@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/01 12:19:29 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:10:21 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,6 @@ static int	argv_to_struct(char **argv, t_table *table)
 	table->eat_time = ft_atoi(argv[3], &error);
 	table->sleep_time = ft_atoi(argv[4], &error);
 	return (error);
-}
-
-static int	init_mutex_philo(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->nb_philos)
-	{
-		if (pthread_mutex_init(&table->philos[i].meal_mutex, NULL) != 0)
-		{
-			pthread_mutex_destroy(&table->print_mutex);
-			pthread_mutex_destroy(&table->simulation_mutex);
-			destroy_mutex_forks(table->forks, table->nb_philos - 1);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 static int	init_mutex(t_table *table)
@@ -66,30 +47,6 @@ static int	init_mutex(t_table *table)
 			pthread_mutex_destroy(&table->simulation_mutex);
 			return (1);
 		}
-		i++;
-	}
-	return (0);
-}
-
-static int	init_philo(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->nb_philos)
-	{
-		table->philos[i].id = i + 1;
-		table->philos[i].meals_eaten = 0;
-		table->philos[i].table = table;
-		table->philos[i].eating = 0;
-		if (init_mutex_philo(table))
-			return (1);
-		table->philos[i].right_fork = &table->forks[i];
-		if (table->nb_philos > 1)
-			table->philos[i].left_fork = &table->forks[(i
-					+ table->nb_philos - 1) % table->nb_philos];
-		else
-			table->philos[i].left_fork = NULL;
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 11:14:54 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/26 11:32:55 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:08:48 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ int	has_stopped(t_table *table)
 	return (stopped);
 }
 
-void	set_stop_simulation(t_table *table)
+void	set_stop_simulation(t_table *table, int print_mutex)
 {
 	if (pthread_mutex_lock(&table->simulation_mutex) != 0)
 	{
-		pthread_mutex_unlock(&table->print_mutex);
+		if (print_mutex)
+			pthread_mutex_unlock(&table->print_mutex);
 		return ;
 	}
 	table->simulation_over = 1;
