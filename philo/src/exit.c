@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:25:28 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 10:51:00 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:19:53 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,16 @@ void	destroy_mutex_forks(pthread_mutex_t	*forks, int last_index)
 
 void	destroy_mutex(t_table *table)
 {
+	int	i;
+
+	i = 0;
 	if (table->nb_philos > 0)
 		destroy_mutex_forks(table->forks, table->nb_philos - 1);
+	while (i < table->nb_philos)
+	{
+		pthread_mutex_destroy(&table->philos[i].meal_mutex);
+		i++;
+	}
 	pthread_mutex_destroy(&table->print_mutex);
 	pthread_mutex_destroy(&table->simulation_mutex);
 }

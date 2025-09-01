@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/30 10:51:09 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/01 12:17:11 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	*monitor_death(void *arg)
 		if (all_philo_eat(table))
 		{
 			set_stop_simulation(table);
+			pthread_mutex_unlock(&table->print_mutex);
 			return (NULL);
 		}
 		if (dead_idx >= 0)
