@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/01 14:10:40 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/02 14:18:02 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,44 +57,51 @@ typedef struct s_table
 	t_philo			*philos;
 }				t_table;
 
+/* check_arg.c */
 int		check_arg(int argc, char **argv);
 
-int		error_msg(t_table *table, char *str, int ret, int mutex_init);
-void	*error_null(t_table *table, char *str, int mutex_init);
-void	free_all(t_table *table);
-
-long	current_time_ms(void);
-long	ft_atoi(const char *nptr, int *error);
-void	usleep_check_death(t_philo *philo, int time_to_wait);
-
-t_table	*init(char **argv);
-
-void	*routine(void *arg);
-void	*monitor_death(void *arg);
-int		has_stopped(t_table *table);
-
-void	destroy_mutex_forks(pthread_mutex_t	*forks, int last_index);
-void	destroy_mutex(t_table *table);
-
-int		philo_eat(t_philo *philo);
-int		philo_sleep(t_philo *philo);
-int		philo_think(t_philo *philo);
-int		check_must_eat(t_philo *philo);
-
-void	wait_until(long target_time);
-
-void	*routine_alone(void *arg);
-int		start_one_thread(t_table *table);
-
-int		all_philo_eat(t_table *table);
-
-void	set_stop_simulation(t_table *table, int print_mutex);
-int		is_someone_dead(t_table *table);
-
+/* eating.c */
 int		alternate_order(t_philo *philo);
 int		print_eating(t_philo *philo);
 int		update_last_meal(t_philo *philo);
 
+/* exit.c */
+int		error_msg(t_table *table, char *str, int ret, int mutex_init);
+void	*error_null(t_table *table, char *str, int mutex_init);
+void	destroy_mutex_forks(pthread_mutex_t	*forks, int last_index);
+void	destroy_mutex(t_table *table);
+void	free_all(t_table *table);
+
+/* init_philo.c */
 int		init_philo(t_table *table);
+
+/* init.c */
+t_table	*init(char **argv);
+
+/* philo_actions.c */
+int		philo_eat(t_philo *philo);
+int		philo_sleep(t_philo *philo);
+int		philo_think(t_philo *philo);
+
+/* philo_alone.c */
+void	*routine_alone(void *arg);
+int		start_one_thread(t_table *table);
+
+/* routine_utils.c */
+int		all_philo_eat(t_table *table);
+int		is_someone_dead(t_table *table);
+int		has_stopped(t_table *table);
+void	set_stop_simulation(t_table *table, int print_mutex);
+
+/* routine.c */
+void	*routine(void *arg);
+void	*monitor_death(void *arg);
+
+/* utils.c */
+void	wait_until(long target_time);
+int		check_must_eat(t_philo *philo);
+void	usleep_check_death(t_philo *philo, int time_to_wait);
+long	current_time_ms(void);
+long	ft_atoi(const char *nptr, int *error);
 
 #endif
