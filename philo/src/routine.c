@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/01 14:08:59 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:19:19 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_until(philo->table->start_time);
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 		usleep(1000);
 	while (1)
 	{
@@ -46,16 +46,15 @@ void	*monitor_death(void *arg)
 		dead_idx = is_someone_dead(table);
 		if (all_philo_eat(table))
 		{
-			set_stop_simulation(table, 0);
+			set_stop_simulation(table);
 			return (NULL);
 		}
 		if (dead_idx >= 0)
 		{
-			if (pthread_mutex_lock(&table->print_mutex) != 0)
-				return (NULL);
+			pthread_mutex_lock(&table->print_mutex);
 			printf("%ld %d died\n", current_time_ms() - table->start_time,
 				table->philos[dead_idx].id);
-			set_stop_simulation(table, 1);
+			set_stop_simulation(table);
 			pthread_mutex_unlock(&table->print_mutex);
 			return (NULL);
 		}

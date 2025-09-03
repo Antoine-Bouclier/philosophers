@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:25:28 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/01 12:19:53 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:49:43 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@ int	error_msg(t_table *table, char *str, int ret, int mutex_init)
 	return (ret);
 }
 
-void	destroy_mutex_forks(pthread_mutex_t	*forks, int last_index)
+void	destroy_mutex_forks(t_mutex	*forks, int last_index)
 {
-	while (last_index >= 0)
+	if (last_index > 0)
 	{
-		pthread_mutex_destroy(&forks[last_index]);
-		last_index--;
+		while (last_index >= 0)
+		{
+			pthread_mutex_destroy(&forks[last_index].mutex);
+			last_index--;
+		}
 	}
 }
 
@@ -44,7 +47,7 @@ void	destroy_mutex(t_table *table)
 		i++;
 	}
 	pthread_mutex_destroy(&table->print_mutex);
-	pthread_mutex_destroy(&table->simulation_mutex);
+	pthread_mutex_destroy(&table->simulation_mutex.mutex);
 }
 
 void	*error_null(t_table *table, char *str, int mutex_init)

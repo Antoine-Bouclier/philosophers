@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 08:00:33 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:08:33 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 		return (ret);
 	table = init(argv);
 	if (!table)
-		return (error_msg(table, "Error! Init failed.", 1, 0));
+		return (error_msg(NULL, "Error! Init failed.", 1, 0));
 	if (table->nb_philos > 1)
 	{
 		start_threads(table);

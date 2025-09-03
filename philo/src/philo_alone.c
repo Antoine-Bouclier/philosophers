@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 08:35:29 by abouclie          #+#    #+#             */
-/*   Updated: 2025/08/29 08:04:27 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:59:50 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine_alone(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_until(philo->table->start_time);
-	if (pthread_mutex_lock(philo->right_fork) != 0)
+	if (pthread_mutex_lock(&philo->right_fork->mutex) != 0)
 	{
 		error_msg(philo->table, STR_MTX_LOCK, 1, 1);
 		return (NULL);
@@ -29,7 +29,7 @@ void	*routine_alone(void *arg)
 	usleep(philo->table->die_time * 1000);
 	time = current_time_ms() - philo->table->start_time;
 	printf("%ld %d died", time, philo->id);
-	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(&philo->right_fork->mutex);
 	return (NULL);
 }
 

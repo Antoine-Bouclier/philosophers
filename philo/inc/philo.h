@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/02 14:18:02 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 10:10:18 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 
 typedef struct s_table	t_table;
 
+typedef struct s_mutex
+{
+	pthread_mutex_t	mutex;
+	int				value;
+}				t_mutex;
+
 typedef struct s_philo
 {
 	int				id;
@@ -35,9 +41,8 @@ typedef struct s_philo
 	long			last_meal;
 	pthread_t		thread;
 	pthread_mutex_t	meal_mutex;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	int				eating;
+	t_mutex			*left_fork;
+	t_mutex			*right_fork;
 	t_table			*table;
 }				t_philo;
 
@@ -49,11 +54,10 @@ typedef struct s_table
 	int				sleep_time;
 	int				must_eat;
 	long			start_time;
-	int				simulation_over;
-	pthread_mutex_t	simulation_mutex;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	*forks;
 	pthread_t		monitor;
+	t_mutex			simulation_mutex;
+	t_mutex			*forks;
 	t_philo			*philos;
 }				t_table;
 
@@ -61,14 +65,14 @@ typedef struct s_table
 int		check_arg(int argc, char **argv);
 
 /* eating.c */
-int		alternate_order(t_philo *philo);
+void	alternate_order(t_philo *philo, int value);
 int		print_eating(t_philo *philo);
 int		update_last_meal(t_philo *philo);
 
 /* exit.c */
 int		error_msg(t_table *table, char *str, int ret, int mutex_init);
 void	*error_null(t_table *table, char *str, int mutex_init);
-void	destroy_mutex_forks(pthread_mutex_t	*forks, int last_index);
+void	destroy_mutex_forks(t_mutex	*forks, int last_index);
 void	destroy_mutex(t_table *table);
 void	free_all(t_table *table);
 
@@ -91,7 +95,7 @@ int		start_one_thread(t_table *table);
 int		all_philo_eat(t_table *table);
 int		is_someone_dead(t_table *table);
 int		has_stopped(t_table *table);
-void	set_stop_simulation(t_table *table, int print_mutex);
+void	set_stop_simulation(t_table *table);
 
 /* routine.c */
 void	*routine(void *arg);

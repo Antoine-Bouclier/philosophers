@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:09:54 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/01 14:10:27 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:58:11 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ static int	init_mutex_philo(t_table *table)
 	{
 		if (pthread_mutex_init(&table->philos[i].meal_mutex, NULL) != 0)
 		{
-			pthread_mutex_destroy(&table->print_mutex);
-			pthread_mutex_destroy(&table->simulation_mutex);
+			if (i > 0)
+			{
+				while (i--)
+					pthread_mutex_destroy(&table->philos[i].meal_mutex);
+			}
 			destroy_mutex_forks(table->forks, table->nb_philos - 1);
+			pthread_mutex_destroy(&table->print_mutex);
+			pthread_mutex_destroy(&table->simulation_mutex.mutex);
 			return (1);
 		}
 		i++;
@@ -41,7 +46,6 @@ int	init_philo(t_table *table)
 		table->philos[i].id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].table = table;
-		table->philos[i].eating = 0;
 		if (init_mutex_philo(table))
 			return (1);
 		table->philos[i].right_fork = &table->forks[i];
