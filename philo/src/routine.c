@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/03 13:19:19 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/08 08:36:35 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	*routine(void *arg)
 			return (NULL);
 		if (philo_think(philo) != 0)
 			return (NULL);
+		usleep_check_death(philo, 2);
 		if (philo_eat(philo) != 0)
 			return (NULL);
 		if (philo_sleep(philo) != 0)
 			return (NULL);
-		usleep(100);
 	}
 	return (NULL);
 }
