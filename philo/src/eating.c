@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 08:02:42 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 08:32:23 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:01:49 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ static void	odd_order(t_philo *philo, int value)
 		lock = set_value_mutex(philo->right_fork, value);
 		if (lock == 1)
 		{
-			lock = set_value_mutex(philo->right_fork, value);
+			lock = set_value_mutex(philo->left_fork, value);
 			if (lock == 0)
 			{
-				lock = set_value_mutex(philo->left_fork, value);
+				lock = set_value_mutex(philo->right_fork, value);
 				if (lock == 0)
 					set_value_mutex(philo->right_fork, 0);
 			}
 		}
 		else
-			usleep(100);
+			usleep(1000);
 	}
 }
 
@@ -60,12 +60,16 @@ void	alternate_order(t_philo *philo, int value)
 			lock = set_value_mutex(philo->left_fork, value);
 			if (lock == 1)
 			{
-				lock = set_value_mutex(philo->right_fork, value);
+				lock = set_value_mutex(philo->left_fork, value);
 				if (lock == 0)
-					set_value_mutex(philo->left_fork, 0);
+				{
+					lock = set_value_mutex(philo->right_fork, value);
+					if (lock == 0)
+						set_value_mutex(philo->left_fork, 0);
+				}
 			}
 			else
-				usleep(100);
+				usleep(1000);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 10:42:32 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:50:06 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int	argv_to_struct(char **argv, t_table *table)
 	table->die_time = ft_atoi(argv[2], &error);
 	table->eat_time = ft_atoi(argv[3], &error);
 	table->sleep_time = ft_atoi(argv[4], &error);
+	table->think_time = 0;
+	if (table->die_time - (table->eat_time + table->sleep_time) > 1)
+		table->think_time = (table->die_time - (table->eat_time + table->sleep_time)) * 0.8;
 	return (error);
 }
 
@@ -56,7 +59,6 @@ static int	init_mutex(t_table *table)
 
 static int	init_table(t_table *table)
 {
-	table->think_time = table->die_time - (table->eat_time + table->sleep_time);
 	table->simulation_mutex.value = 0;
 	table->forks = malloc(sizeof(t_mutex) * table->nb_philos);
 	if (!table->forks)
