@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 08:36:35 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/08 10:44:45 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ void	*routine(void *arg)
 	wait_until(philo->table->start_time);
 	if (philo->id % 2 == 0)
 		usleep(1000);
+	if (philo_think(philo) != 0)
+		return (NULL);
 	while (1)
 	{
 		if (has_stopped(philo->table) == 1)
 			return (NULL);
-		if (philo_think(philo) != 0)
-			return (NULL);
-		usleep_check_death(philo, 2);
 		if (philo_eat(philo) != 0)
 			return (NULL);
 		if (philo_sleep(philo) != 0)
 			return (NULL);
+		if (philo_think(philo) != 0)
+			return (NULL);
+		usleep_check_death(philo, philo->table->think_time);
 	}
 	return (NULL);
 }

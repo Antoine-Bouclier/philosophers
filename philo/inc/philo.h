@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/03 10:10:18 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/08 10:34:24 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_table
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
+	int				think_time;
 	int				must_eat;
 	long			start_time;
 	pthread_mutex_t	print_mutex;
