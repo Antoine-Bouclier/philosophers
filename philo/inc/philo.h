@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 08:41:46 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 10:34:24 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:47:26 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_table
 int		check_arg(int argc, char **argv);
 
 /* eating.c */
+int		set_value_mutex(t_mutex *mutex, int value);
 void	alternate_order(t_philo *philo, int value);
 int		print_eating(t_philo *philo);
 int		update_last_meal(t_philo *philo);

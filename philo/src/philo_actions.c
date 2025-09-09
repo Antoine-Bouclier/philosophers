@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 08:18:15 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/09 08:46:58 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	philo_eat(t_philo *philo)
 	if (update_last_meal(philo))
 		return (1);
 	usleep_check_death(philo, philo->table->eat_time);
-	alternate_order(philo, 0);
+	set_value_mutex(philo->left_fork, 0);
+	set_value_mutex(philo->right_fork, 0);
 	return (0);
 }
 

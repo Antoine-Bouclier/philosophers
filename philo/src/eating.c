@@ -6,13 +6,13 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 08:02:42 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/08 14:01:49 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:21:33 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	set_value_mutex(t_mutex *mutex, int value)
+int	set_value_mutex(t_mutex *mutex, int value)
 {
 	pthread_mutex_lock(&mutex->mutex);
 	if (mutex->value != value)
@@ -38,9 +38,8 @@ static void	odd_order(t_philo *philo, int value)
 			lock = set_value_mutex(philo->left_fork, value);
 			if (lock == 0)
 			{
-				lock = set_value_mutex(philo->right_fork, value);
-				if (lock == 0)
-					set_value_mutex(philo->right_fork, 0);
+				lock = set_value_mutex(philo->right_fork, 0);
+				lock = 0;
 			}
 		}
 		else
@@ -60,12 +59,11 @@ void	alternate_order(t_philo *philo, int value)
 			lock = set_value_mutex(philo->left_fork, value);
 			if (lock == 1)
 			{
-				lock = set_value_mutex(philo->left_fork, value);
+				lock = set_value_mutex(philo->right_fork, value);
 				if (lock == 0)
 				{
-					lock = set_value_mutex(philo->right_fork, value);
-					if (lock == 0)
-						set_value_mutex(philo->left_fork, 0);
+					lock = set_value_mutex(philo->left_fork, 0);
+					lock = 0;
 				}
 			}
 			else
