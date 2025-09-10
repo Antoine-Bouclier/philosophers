@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:20:36 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/09 10:33:52 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/10 10:52:20 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	argv_to_struct(char **argv, t_table *table)
 	table->think_time = 0;
 	if (table->die_time - (table->eat_time + table->sleep_time) > 1)
 		table->think_time = (table->die_time
-				- (table->eat_time + table->sleep_time)) * 0.8;
+				- (table->eat_time + table->sleep_time)) - 1;
 	return (error);
 }
 
