@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/09 09:22:16 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/10 08:14:56 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	*routine(void *arg)
 			return (NULL);
 		if (philo_think(philo) != 0)
 			return (NULL);
-		usleep_check_death(philo, philo->table->think_time);
+		if (philo->table->think_time > 0 && philo->table->nb_philos % 2 != 0)
+			usleep_check_death(philo, philo->table->think_time);
 	}
 	return (NULL);
 }
