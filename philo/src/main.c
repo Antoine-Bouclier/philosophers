@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/12 12:01:36 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/12 12:26:12 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ static int	thread_philo(t_table *table)
 static int	start_threads(t_table *table)
 {
 	if (pthread_create(&table->monitor, NULL, &monitor_death, table) != 0)
+	{
+		set_stop_simulation(table);
 		return (error_msg(NULL,
 				"Error: failed to create a new thread", 1, 0));
+	}
 	if (pthread_join(table->monitor, NULL) != 0)
 		return (error_msg(NULL,
 				"Error: failed to join the monitor thread", 1, 0));
@@ -74,11 +77,12 @@ int	main(int argc, char **argv)
 		return (error_msg(NULL, "Error! Init failed.", 1, 0));
 	if (table->nb_philos > 1)
 	{
-		if (start_threads(table) == 0)
+		created = thread_philo(table);
+		if (created)
 		{
-			created = thread_philo(table);
-			if (created)
-				stop_threads(table);
+			if (created == table->nb_philos)
+				start_threads(table);
+			stop_threads(table);
 		}
 	}
 	else
