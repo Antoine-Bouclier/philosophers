@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:25:28 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/03 09:49:43 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/12 11:50:05 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	error_msg(t_table *table, char *str, int ret, int mutex_init)
 		destroy_mutex(table);
 	if (table != NULL)
 		free_all(table);
-	printf("%s", str);
+	printf("%s\n", str);
 	return (ret);
 }
 

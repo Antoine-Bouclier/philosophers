@@ -6,7 +6,7 @@
 /*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/09 08:46:58 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/12 11:04:26 by abouclie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	philo_eat(t_philo *philo)
 {
-	if (check_must_eat(philo) != 0 || has_stopped(philo->table))
+	if (has_stopped(philo->table))
 		return (1);
 	alternate_order(philo, 1);
 	if (print_eating(philo) == 1)
@@ -33,7 +33,7 @@ int	philo_eat(t_philo *philo)
 
 int	philo_sleep(t_philo *philo)
 {
-	if (check_must_eat(philo) != 0 || has_stopped(philo->table))
+	if (has_stopped(philo->table))
 		return (1);
 	pthread_mutex_lock(&philo->table->print_mutex);
 	printf("%ld %d is sleeping\n", current_time_ms() - philo->table->start_time,
@@ -45,7 +45,7 @@ int	philo_sleep(t_philo *philo)
 
 int	philo_think(t_philo *philo)
 {
-	if (check_must_eat(philo) != 0 || has_stopped(philo->table))
+	if (has_stopped(philo->table))
 		return (1);
 	pthread_mutex_lock(&philo->table->print_mutex);
 	printf("%ld %d is thinking\n", current_time_ms() - philo->table->start_time,
