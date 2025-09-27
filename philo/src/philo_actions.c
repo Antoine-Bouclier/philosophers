@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:44:00 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/12 11:04:26 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/27 08:55:47 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ int	philo_eat(t_philo *philo)
 		return (1);
 	alternate_order(philo, 1);
 	if (print_eating(philo) == 1)
-	{
-		pthread_mutex_unlock(&philo->right_fork->mutex);
-		pthread_mutex_unlock(&philo->left_fork->mutex);
 		return (1);
-	}
 	if (update_last_meal(philo))
 		return (1);
 	usleep_check_death(philo, philo->table->eat_time);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 14:09:54 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/03 09:58:11 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/27 08:54:58 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	init_philo(t_table *table)
 		table->philos[i].id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].table = table;
-		if (init_mutex_philo(table))
-			return (1);
 		table->philos[i].right_fork = &table->forks[i];
 		if (table->nb_philos > 1)
 			table->philos[i].left_fork = &table->forks[(i
@@ -56,5 +54,7 @@ int	init_philo(t_table *table)
 			table->philos[i].left_fork = NULL;
 		i++;
 	}
+	if (init_mutex_philo(table))
+		return (1);
 	return (0);
 }
