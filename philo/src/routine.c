@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 10:29:20 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/12 12:01:29 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:18:44 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*routine(void *arg)
 			return (NULL);
 		if (philo_think(philo) != 0)
 			return (NULL);
-		if (philo->table->think_time > 0 && philo->table->nb_philos % 2 != 0)
+		if (philo->table->think_time > 0)
 			usleep_check_death(philo, philo->table->think_time);
 	}
 	return (NULL);
