@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouclie <abouclie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouclie <abouclie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 08:19:43 by abouclie          #+#    #+#             */
-/*   Updated: 2025/09/12 12:26:12 by abouclie         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:07:54 by abouclie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static int	thread_philo(t_table *table)
 	table->start_time = current_time_ms() + (table->nb_philos * 10);
 	while (i < table->nb_philos)
 	{
-		if (pthread_mutex_lock(&table->philos[i].meal_mutex) != 0)
-			return (error_msg(table, STR_MTX_LOCK, 1, 1));
 		table->philos[i].last_meal = table->start_time;
-		pthread_mutex_unlock(&table->philos[i].meal_mutex);
 		if (pthread_create(&table->philos[i].thread, NULL, &routine,
 				&table->philos[i]) != 0)
 		{
